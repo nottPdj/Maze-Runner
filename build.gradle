@@ -1,0 +1,37 @@
+
+plugins {
+    id 'java'
+    id 'info.solidsoft.pitest' version '1.7.0'
+    id "net.ltgt.errorprone" version "3.0.1"
+    id 'application'
+}
+
+group = 'com.g0301.mazerunner'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+pitest {
+    junit5PluginVersion = '0.12'
+}
+
+application {
+    mainClass.set('com.g0301.mazerunner.Game')
+}
+
+dependencies {
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation 'org.mockito:mockito-core:3.7.7'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testImplementation 'net.jqwik:jqwik:1.5.1'
+    implementation ("com.googlecode.lanterna:lanterna:3.1.1")
+    errorprone("com.google.errorprone:error_prone_core:2.18.0")
+}
+
+test {
+    useJUnitPlatform{
+        includeEngines('junit-jupiter', 'jqwik')
+    }
+}
